@@ -9,6 +9,8 @@ class InventoryTransaction extends Model
 {
     use UsesUuid;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'product_variant_id',
         'type',
@@ -17,15 +19,19 @@ class InventoryTransaction extends Model
         'created_by'
     ];
 
-    public $timestamps = false;
-
     public function variant()
     {
-        return $this->belongsTo(ProductVariant::class,'product_variant_id');
+        return $this->belongsTo(
+            ProductVariant::class,
+            'product_variant_id'
+        );
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class,'created_by');
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
     }
 }
