@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->date('dob');
             $table->text('avatar');
+            $table->uuid('author_id');
             $table->rememberToken();
             $table->timestamps();
         });
