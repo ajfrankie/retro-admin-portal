@@ -18,10 +18,14 @@ use App\Http\Controllers\Backend\CustomerController;
 |
 */
 
-Auth::routes(['login' => false, 'logout' => false, 'verify' => true]);
+// Auth::routes(['login' => false, 'logout' => false, 'verify' => true]);
 
-Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/about-us', [HomeController::class, 'index'])->name('about-us');
+// Route::get('/', [HomeController::class, 'index'])->name('index');
+// Route::get('/about-us', [HomeController::class, 'index'])->name('about-us');
+
+Route::get('/', function () {
+    return redirect()->route('admin.login');
+})->name('index');
 
 // Admin
 Route::prefix('/admin')->group(function () {
