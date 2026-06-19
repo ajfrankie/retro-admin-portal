@@ -14,15 +14,24 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
 
             $table->uuid('id')->primary();
-            $table->foreignUuid('author_id')->constrained('users')->restrictOnDelete();
-            $table->string('title',200);
-            $table->string('slug',220)->unique();
+
+            $table->foreignId('author_id')
+                ->constrained('users')
+                ->restrictOnDelete();
+
+            $table->string('title', 200);
+            $table->string('slug', 220)->unique();
             $table->longText('content');
             $table->string('featured_image')->nullable();
-            $table->enum('status',['draft','published','archived'])->default('draft');
+
+            $table->enum('status', [
+                'draft',
+                'published',
+                'archived'
+            ])->default('draft');
+
             $table->timestamp('published_at')->nullable();
-            $table->foreignId('author_id')->constrained('users')->restrictOnDelete();
-            
+
             $table->timestamps();
         });
     }

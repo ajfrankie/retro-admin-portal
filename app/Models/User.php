@@ -12,22 +12,18 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Mass assignable attributes
      */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'dob', 
+        'dob',
         'avatar',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * Hidden attributes
      */
     protected $hidden = [
         'password',
@@ -35,11 +31,45 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Cast attributes
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    /**
+     * Blog posts created by user
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author_id');
+    }
+
+    /**
+     * Inventory transactions created by user
+     */
+    public function inventoryTransactions()
+    {
+        return $this->hasMany(
+            InventoryTransaction::class,
+            'created_by'
+        );
+    }
+
+    /**
+     * Order status updates made by user
+     */
+    public function orderStatusHistories()
+    {
+        return $this->hasMany(
+            OrderStatusHistory::class,
+            'updated_by'
+        );
+    }
 }
